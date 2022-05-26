@@ -21,12 +21,37 @@ def menu(id):
     elif choice == 3:
       print(3)
     else:
-      quit()
+      print("Thank you")
+      return 
   except:
     menu(id)
 
-def create_account(id):
+
+def withdraw(id):
+  new_balance = 0
+  
+  with open(id + ".txt") as f:
+    
+    balance = f.readlines()
+  f.close()
+
+  try:
+    amount = int(input("Please enter amount "))
+  except:
+    withdraw(id)
+
+  if amount > balance:
+    print("You cant withdraw more than your balance")
+  else:
+    new_balance = int(balance[0] -amount)
   fwrite = open(id + ".txt", "w")
+
+  fwrite.write(new_balance)
+  fwrite.close()
+
+  
+def create_account(id):
+  open(id + ".txt", "w")
   menu(id)
   
 def start():
