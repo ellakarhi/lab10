@@ -78,8 +78,10 @@ def deposit(id):
      
 
 def create_account(id):
-  """creates an account if one doesn't already exist"""
-  open(id + ".txt", "w")
+  """creates an account if one doesn't already exist and gives it a starting value of 0"""
+  new_account = open(id + ".txt", "w")
+  new_account.write('0')
+  new_account.close()
   menu(id)
 
 def start():
