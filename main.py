@@ -23,14 +23,16 @@ def menu(id):
       withdraw(id)
       menu(id)
     elif choice == 3:
-      print (1)
+      deposit(id)
+      menu(id)
     else:
-      print("Thank you. Goodbye.")
+      print("Thank you!")
       return
   except:
     menu(id)
 
 def withdraw(id):
+  """with draws amount from id file"""
   new_balance = 0
   
   with open(id + ".txt") as f:
@@ -54,7 +56,29 @@ def withdraw(id):
   print(f"Your new balance is {new_balance}")
   fwrite.close()
 
+def deposit(id):
+  """Deposits input amount into id file"""
+  with open(id + ".txt") as f:
+    balance = f.readlines()
+  f.close()
+  try:
+    deposit_amount = int(input("Please enter the amount you want to deposit: $"))
+  except:
+    deposit(id)
+  if deposit_amount < 0:
+    print("You cannot deposit a negative amount")
+    deposit(id)
+  int_balance = int(balance[0])
+  new_balance = int_balance + deposit_amount
+
+  fwrite = open(id + ".txt", "w")
+  fwrite.write(str(new_balance))
+  print(f"Your new balance is {new_balance}")
+  fwrite.close()
+     
+
 def create_account(id):
+  """creates an account if one doesn't already exist"""
   open(id + ".txt", "w")
   menu(id)
 
